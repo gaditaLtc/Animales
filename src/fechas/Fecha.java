@@ -14,6 +14,7 @@ public class Fecha {
 	}
 		else System.out.println ("La fecha no es válida");
 	}
+	public Fecha () {}
 	
 	public int getDia() {
 		return dia;
@@ -94,40 +95,55 @@ public class Fecha {
 		return fch;
 	}
 	public int diasPasados (Fecha f){
-		int dd=0;
-		if (esMayor (f)==1){
-			for (int i=this.anio+1; i<f.anio;i++){
-				if (esBisiesto(i)) dd=dd+366;
-				else dd=dd+365;}
-			for (int m=1; m<f.mes;m++)dd=dd+numDiasMes(m,f.anio);
-			dd=dd+f.dia;
+		Fecha menorFecha= new Fecha();
+		Fecha mayorFecha=new Fecha();
+		
+		int diasP=0;
+		if (this.esMayor (f)==1) {
+			mayorFecha=f;
+			menorFecha.dia=this.dia;
+			menorFecha.mes=this.mes;
+			menorFecha.anio=this.anio;
+			System.out.println(menorFecha.escribirFecha());
+			System.out.println(mayorFecha.escribirFecha());
+			}
+		else if (this.esMayor(f)==-1){
+			menorFecha=f;
+			mayorFecha.dia=this.dia;
+			mayorFecha.mes=this.mes;
+			mayorFecha.anio=this.anio;
+			System.out.println(menorFecha.escribirFecha());
+			System.out.println(mayorFecha.escribirFecha());
+			}
+		//años completos entre las fechas
+		for (int a=menorFecha.anio+1; a<mayorFecha.anio;a++){
+				if (esBisiesto(a)) diasP=diasP+366;
+				else diasP=diasP+365;}
+		//meses completos desde la fecha mayor hasta el mes correspondiente
+			for (int m=1; m<mayorFecha.mes;m++) 
+				diasP=diasP+numDiasMes(m,mayorFecha.anio);
+		//dias del último mes
+				diasP=diasP+mayorFecha.dia;
+		//meses completos del año menor	
+			for (int m=menorFecha.mes+1;m<=12;m++)
+				diasP=diasP+numDiasMes(m, menorFecha.anio);
+		//dias del primer mes	
+			diasP=diasP+(numDiasMes(menorFecha.mes, menorFecha.anio)-menorFecha.dia);		
+
 			
-			for (int m=this.mes+1;m<=12;m++)dd=dd+numDiasMes(m, f.anio);
-			dd=dd+(numDiasMes(this.mes, this.anio)-this.dia);		
-			}
-			else if (esMayor(f)==-1){
-				for (int i=f.anio; i<this.anio;i++){
-					if (esBisiesto(i)) dd=dd+366;
-					else dd=dd+365;
-				}
-				for (int m=1; m<this.mes;m++)dd=dd+numDiasMes(m,this.anio);
-				dd=dd+f.dia;
-				for (int m=f.mes+1;m<=12;m++)dd=dd+numDiasMes(m, this.anio);
-				dd=dd+(numDiasMes(f.mes, f.anio)-f.dia);		
-				}
-		return dd;
-			}
+		return diasP;
+}
 				
 	public String diaSemana (int i)	{
 		String dia="";
 		switch (i){
-		case 1:dia="lunes";break;
-		case 2:dia="martes";break;
-		case 3:dia="miercoles";break;
-		case 4:dia="jueves";break;
-		case 5:dia="viernes";break;
-		case 6:dia="sabado";break;
-		case 7:dia="domingo";break;
+		case 0:dia="lunes";break;
+		case 1:dia="martes";break;
+		case 2:dia="miercoles";break;
+		case 3:dia="jueves";break;
+		case 4:dia="viernes";break;
+		case 5:dia="sabado";break;
+		case 6:dia="domingo";break;
 		}
 		return dia;
 	}
@@ -152,7 +168,7 @@ public class Fecha {
 
 	public String diaFecha(){
 		String dF="";
-		Fecha tempFecha=new Fecha(7,1,1901);
+		Fecha tempFecha=new Fecha(2,1,1);
 		int ddd=this.diasPasados(tempFecha);
 		System.out.println(ddd);
 		dF=diaSemana(ddd%7);
