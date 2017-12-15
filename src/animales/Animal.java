@@ -46,7 +46,7 @@ package animales;
 		public String toString() {
 			return " nombre=" + nombre + "- codigo=" + codigo + "";
 		}
-		protected void escribirAnimal(){
+		public void escribirAnimal(){
 			System.out.println(" nombre=" + nombre + "- codigo=" + codigo + "");
 		}
 		public void escribirAnimal2(){

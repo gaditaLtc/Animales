@@ -1,4 +1,4 @@
-package citas;
+package citasYVisitas;
 
 import animales.Animal;
 import animales.Mamifero;
@@ -17,11 +17,11 @@ public static void main(String[] args) {
 			Citas citaAnimal2=new Citas (f1,h1,ani2);
 			Citas citaAnimal3=new Citas (f1, h1, ani3);
 			System.out.println("Animal 1: escribo a través de Animal public y luego la cita entera:");
-			//ani1.escribirAnimal();no puedo acceder por protected
+			ani1.escribirAnimal();
 			ani1.escribirAnimal2();
 			citaAnimal1.escribirCita();
 			System.out.println("Animal 2: con toString sobreescrito para Mamifero, con animal publico y con escribirAnimal de mamifero ");
-			//ani2.escribirAnimal();probarlo, 
+			ani2.escribirAnimal(); 
 			citaAnimal2.escribirCita();
 			ani2.escribirAnimal2();
 			//ani2.escribirMamifero no puede porque está declarado como Animal, aunque lo construya bien como Mamifero
@@ -29,6 +29,14 @@ public static void main(String[] args) {
 			System.out.println("Animal 3: escribo primero el animal a través de escribirMamifero:");
 			ani3.escribirAnimal();//se va a buscar el de mamifero
 			citaAnimal3.escribirCita();
+			
+			Visitas v1=new Visitas(citaAnimal1,"catarro");
+			Visitas v3=new Visitas (citaAnimal3, "gastroenteritis");
+			v1.cobrar();
+			v3.cobrar();
+			v1.resultadoVisita();
+			v3.resultadoVisita();
+			
 		}
 
 	}

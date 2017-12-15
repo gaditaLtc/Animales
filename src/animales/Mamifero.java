@@ -37,6 +37,7 @@ public class Mamifero extends Animal{
 				
 				super.escribirAnimal();
 				System.out.println(this.toString());
+				
 			}
 			public void escribirMamifero(){
 				
